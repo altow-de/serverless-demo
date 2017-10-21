@@ -1,0 +1,5 @@
+service: exampleSls
+provider: aws
+functions:
+  hello:
+    handler: index.myFunc
