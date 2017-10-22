@@ -3,3 +3,8 @@ provider: aws
 functions:
   hello:
     handler: index.myFunc
+    events:
+      - http:
+          path: /myFunc
+          method: get
+          integration: lambda
