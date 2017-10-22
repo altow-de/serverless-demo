@@ -1,3 +1,4 @@
+import authed from './lib/auth'
 import { DB } from './lib/database'
 import { HostedZone } from './lib/domains'
 
@@ -21,15 +22,33 @@ bought: false
 const userTable = new DB('dyndns-test-user-info', 'userId')
 const domainTable =  new DB('dyndns-test-domains', 'subdomain')
 
+export async function user(event, context, cb) {
+  const userId = await (authed(event))
+  let user = await userTable.getItem(userId)
+  if (!user) {
+    user = {
+      payer: false
+    }
+  }
+  context.succeed(user)
+}
+
 export async function list(event, context, cb) {
-  const list = await domainTable.getItems()
-  context.succeed(list)
+  const userId = await (authed(event))
+  const domains = await domainTable.getItems('userId', userId)  
+  context.succeed(domains)
 }
 
 export async function upsert(event, context, cb) {
+  const userId = await (authed(event))
+  
   const domainName = event.query.domain
   const address = event.query.address
   const domain = await domainTable.getItem(domainName)
+
+  if (domain && domain.userId !== userId) {
+    return context.fail({"success": false})
+  }
 
   let updateToken = event.query.updateToken
   if (!updateToken) {
@@ -41,17 +60,20 @@ export async function upsert(event, context, cb) {
   await domainTable.putItem({
     subdomain : domainName,
     address: address,
+    userId,
     updateToken
   })
   context.succeed({"success": true})
 }
 
 export async function remove(event, context, cb) {
+  const userId = await (authed(event))
+  
   const domainName = event.query.domain
   const address = event.query.address
   const domain = await domainTable.getItem(domainName)
 
-  if (!domain || !domainName.length) {
+  if (!domain || !domainName.length || domain.userId !== userId) {
     return context.fail({"success": false})
   }
 
