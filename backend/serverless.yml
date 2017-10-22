@@ -22,6 +22,40 @@ provider:
       Resource: "*"
   environment: ${file(../conf.json)}
 
+functions:
+  list:
+    handler: functions/dyns.list
+    name: dyndns-test-functions-list
+    events:
+      - http:
+          path: /list
+          method: get
+          cors: true
+          integration: lambda
+          response:
+            headers:
+              Content-Type: "'application/json; charset=utf-8'"
+              Access-Control-Allow-Origin: "'*'"
+            template: $input.json("$")
+  upsert:
+    handler: functions/dyns.upsert
+    name: dyndns-test-functions-upsert
+    events:
+      - http:
+          path: /upsert
+          method: post
+          cors: true
+          integration: lambda
+          response:
+            headers:
+              Content-Type: "'application/json; charset=utf-8'"
+              Access-Control-Allow-Origin: "'*'"
+            template: $input.json("$")
+
+plugins:
+  - serverless-plugin-typescript
+
+
 resources:
   Resources:
     userInfo:
