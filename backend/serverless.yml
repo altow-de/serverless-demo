@@ -79,6 +79,20 @@ functions:
               Content-Type: "'application/json; charset=utf-8'"
               Access-Control-Allow-Origin: "'*'"
             template: $input.json("$")
+  buy:
+    handler: functions/dyns.buy
+    name: dyndns-test-functions-buy
+    events:
+      - http:
+          path: /buy
+          method: post
+          cors: true
+          integration: lambda
+          response:
+            headers:
+              Content-Type: "'application/json; charset=utf-8'"
+              Access-Control-Allow-Origin: "'*'"
+            template: $input.json("$")
 
 plugins:
   - serverless-plugin-typescript

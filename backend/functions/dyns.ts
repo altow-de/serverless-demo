@@ -1,6 +1,7 @@
 import authed from './lib/auth'
 import { DB } from './lib/database'
 import { HostedZone } from './lib/domains'
+import { Stripe } from 'stripe'
 
 // user
 /*
@@ -83,3 +84,31 @@ export async function remove(event, context, cb) {
   context.succeed({"success": true})
 }
 
+
+export async function buy(event, context){
+  const userId = await (authed(event))
+
+  const keySecret = process.env.STRIPE_SECRET_KEY
+  const stripe = Stripe(keySecret)
+  const customer = await stripe.customers.create({
+    email: event.query.stripeEmail,
+    source: event.query.stripeToken
+  })
+
+  try {
+    const charge = await stripe.charges.create({
+      amount: 399,
+      description: "Sample Charge",
+         currency: "usd",
+         customer: customer.id
+    })
+    let user = await userTable.getItem(userId)
+    user = user ? user : { userId }
+    user.payer = true
+    user.stripeCustomerId = customer.id
+    await userTable.putItem(user)
+    context.succeed({"success": true})
+  } catch (e) {
+    return context.fail(e)
+  }
+}
