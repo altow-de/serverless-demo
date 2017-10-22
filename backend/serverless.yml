@@ -51,6 +51,20 @@ functions:
               Content-Type: "'application/json; charset=utf-8'"
               Access-Control-Allow-Origin: "'*'"
             template: $input.json("$")
+  remove:
+    handler: functions/dyns.remove
+    name: dyndns-test-functions-remove
+    events:
+      - http:
+          path: /remove
+          method: post
+          cors: true
+          integration: lambda
+          response:
+            headers:
+              Content-Type: "'application/json; charset=utf-8'"
+              Access-Control-Allow-Origin: "'*'"
+            template: $input.json("$")
 
 plugins:
   - serverless-plugin-typescript
