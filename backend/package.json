@@ -1,0 +1,27 @@
+{
+  "name": "dynback",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tom Jaster",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/aws-lambda": "0.0.16",
+    "@types/jsonwebtoken": "^7.2.3",
+    "@types/node": "^8.0.28",
+    "@types/node-fetch": "^1.6.7",
+    "serverless": "^1.22.0",
+    "serverless-plugin-typescript": "^1.1.2",
+    "ts-node": "^3.3.0"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.1.0",
+    "lodash": "^4.17.4",
+    "node-fetch": "^1.7.3",
+    "pem-jwk": "^1.5.1",
+    "stripe": "^5.1.0"
+  }
+}

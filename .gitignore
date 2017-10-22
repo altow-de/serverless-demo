@@ -8,3 +8,5 @@ backend/npm-debug.log
 backend/.serverless
 .serverless
 frontend/dist
+/.DS_Store
+.DS_Store

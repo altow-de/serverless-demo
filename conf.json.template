@@ -1,0 +1,11 @@
+{
+  "FRONTEND_BUCKET": "dyndns-test-frontend-bucket",
+  "R53_HOSTED_ZONE": "awesome-dyndns.eu",
+  "API": "https://h54ex1dnh9.execute-api.eu-central-1.amazonaws.com/test",
+  "AUTH0_DOMAIN": "dyndns-altow-test.eu.auth0.com",
+  "AUTH0_CLIENT_ID": "l1y45Q-fZ9uWvfPxerSN8b1-mrsa3nG4",
+  "AUTH0_CLIENT_REDIRECT" : "http://localhost:4000/",
+  "AUTH0_AUDIENCE": "https://dyndns-altow-test.eu.auth0.com/userinfo",
+  "STRIPE_PUBLISHABLE_KEY":"pk_test_6pRNASCoBOKtIshFeQd4XMUh",
+  "STRIPE_SECRET_KEY":"sk_test_BQokikJOvBiI2HlWgH4olfQ2"
+}

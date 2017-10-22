@@ -1,0 +1,29 @@
+{
+  "name": "dynfront",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "bucket=`node -pe \"require('../conf.json').FRONTEND_BUCKET\"` && npm run build && aws s3 sync --region=eu-central-1 --acl=public-read --delete ./dist s3://$bucket/",
+    "build": "poi build",
+    "dev": "poi"
+  },
+  "author": "Tom Jaster",
+  "license": "MIT",
+  "dependencies": {
+    "auth0-js": "^8.9.3",
+    "bootstrap": "^3.3.7",
+    "poi": "^9.3.5",
+    "vue": "^2.4.4",
+    "vue-smart-table": "^2.6.0-beta5",
+    "vue2-bootstrap-table2": "^1.1.8"
+  },
+  "devDependencies": {
+    "s3-cli": "^0.13.0",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6"
+  },
+  "engines": {
+    "node": "6.9.0"
+  }
+}
