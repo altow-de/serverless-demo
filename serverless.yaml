@@ -1,5 +1,7 @@
 service: exampleSls
-provider: aws
+provider:
+  name: aws
+  region: eu-central-1
 functions:
   hello:
     handler: index.myFunc
@@ -8,3 +10,9 @@ functions:
           path: /myFunc
           method: get
           integration: lambda
+    vpc:
+      securityGroupIds:
+        - sg-fe330495
+      subnetIds:
+        - subnet-8c7c6ce4
+        - subnet-f4d98a8e
